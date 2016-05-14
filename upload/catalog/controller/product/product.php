@@ -334,6 +334,7 @@ class ControllerProductProduct extends Controller {
 			}
 
 			$data['options'] = array();
+			$data['option_images'] = array();
 
 			foreach ($this->model_catalog_product->getProductOptions($this->request->get['product_id']) as $option) {
 				$product_option_value_data = array();
@@ -342,9 +343,16 @@ class ControllerProductProduct extends Controller {
 					if (!$option_value['subtract'] || ($option_value['quantity'] > 0)) {
 						if ((($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) && (float)$option_value['price']) {
 							$price = $this->currency->format($this->tax->calculate($option_value['price'], $product_info['tax_class_id'], $this->config->get('config_tax') ? 'P' : false), $this->session->data['currency']);
+							$combined_price = $this->currency->format($this->tax->calculate($option_value['price'] + $product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax') ? 'P' : false), $this->session->data['currency']);;
 						} else {
 							$price = false;
+							$combined_price = $data['price'];
 						}
+
+						$option_image_popup = $this->model_tool_image->resize($option_value['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+						$option_image_thumb = $this->model_tool_image->resize($option_value['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
+
+						$data['option_images'][$option_value['option_value_id']] = array('popup' => $option_image_popup, 'thumb' => $option_image_thumb, 'heading' => $option_value['name'], 'id' => $option_value['product_option_value_id']);
 
 						$product_option_value_data[] = array(
 							'product_option_value_id' => $option_value['product_option_value_id'],
@@ -352,7 +360,11 @@ class ControllerProductProduct extends Controller {
 							'name'                    => $option_value['name'],
 							'image'                   => $this->model_tool_image->resize($option_value['image'], 50, 50),
 							'price'                   => $price,
-							'price_prefix'            => $option_value['price_prefix']
+							'price_prefix'            => $option_value['price_prefix'],
+							'orig_price'              => $option_value['price'],
+							'combined_price'          => $combined_price,
+							'image_popup'             => $option_image_popup,
+							'image_thumb'             => $option_image_thumb
 						);
 					}
 				}

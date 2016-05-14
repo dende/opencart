@@ -1,4 +1,4 @@
-<div id="carousel<?php echo $module; ?>" class="owl-carousel">
+<div id="carousel<?php echo $module; ?>" class="owl-carousel hidden-xs hidden-sm">
   <?php foreach ($banners as $banner) { ?>
       <div class="item">
     <?php if ($banner['link']) { ?>
@@ -12,7 +12,7 @@
 <script type="text/javascript"><!--
 $('#carousel<?php echo $module; ?>').owlCarousel({
 	items: 4,
-	autoPlay: 3000,
+	autoPlay: 5000,
     center: true,
 	navigation: true,
 	navigationText: ['<i class="fa fa-chevron-left fa-5x"></i>', '<i class="fa fa-chevron-right fa-5x"></i>'],

@@ -322,10 +322,7 @@ div.required .control-label:before {
 		color: #fff;
 	}
 }
-/* content */
-#content {
-	min-height: 600px;
-}
+
 /* footer */
 footer {
 	margin-top: 30px;
@@ -679,16 +676,6 @@ h2.price {
 	text-decoration: none;
 	cursor: pointer;
 }
-@media (max-width: 1200px) {
-	.product-thumb .button-group button, .product-thumb .button-group button + button {
-		width: 33.33%;
-	}
-}
-@media (max-width: 767px) {
-	.product-thumb .button-group button, .product-thumb .button-group button + button {
-		width: 33.33%;
-	}
-}
 .thumbnails {
 	overflow: auto;
 	clear: both;
@@ -787,3 +774,16 @@ h2.price {
     background-color: #df5c39;
 }
 
+a.thumbnail.active, a.thumbnail:focus, a.thumbnail:hover {
+	border-color: #cc6699;
+}
+a.thumbnail.selected {
+	border-color: #CC6699;
+	-webkit-box-shadow: 0px 0px 20px 5px rgba(204,102,153,0.64);
+	-moz-box-shadow: 0px 0px 20px 5px rgba(204,102,153,0.64);
+	box-shadow: 0px 0px 20px 5px rgba(204,102,153,0.64);
+
+}
+
+@media (min-width: 768px){
+}

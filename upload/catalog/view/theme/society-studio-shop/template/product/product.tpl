@@ -31,6 +31,11 @@
             <li class="image-additional"><a class="thumbnail" href="<?php echo $image['popup']; ?>" title="<?php echo $heading_title; ?>"> <img src="<?php echo $image['thumb']; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
             <?php } ?>
             <?php } ?>
+            <?php if ($option_images) { ?>
+            <?php foreach ($option_images as $image) { ?>
+            <li class="image-additional"><a class="thumbnail" id="option_<?php echo $image['id']; ?>" href="<?php echo $image['popup']; ?>" title="<?php echo $heading_title; ?> <?php echo $image['heading']; ?>"> <img src="<?php echo $image['thumb']; ?>" title="<?php echo $heading_title; ?> <?php echo $image['heading']; ?>" alt="<?php echo $heading_title; ?> <?php echo $image['heading']; ?>" /></a></li>
+            <?php } ?>
+            <?php } ?>
           </ul>
           <?php } ?>
           <ul class="nav nav-tabs">
@@ -131,7 +136,7 @@
           <ul class="list-unstyled">
             <?php if (!$special) { ?>
             <li>
-              <h2><?php echo $price; ?></h2>
+              <h2 id="price"><?php echo $price; ?></h2>
             </li>
             <?php } else { ?>
             <li><span style="text-decoration: line-through;"><?php echo $price; ?></span></li>
@@ -163,7 +168,7 @@
             <?php if ($option['type'] == 'select') { ?>
             <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
               <label class="control-label" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
-              <select name="option[<?php echo $option['product_option_id']; ?>]" id="input-option<?php echo $option['product_option_id']; ?>" class="form-control">
+              <select name="option[<?php echo $option['product_option_id']; ?>]" id="input-option<?php echo $option['product_option_id']; ?>" class="form-control option_select">
                 <option value=""><?php echo $text_select; ?></option>
                 <?php foreach ($option['product_option_value'] as $option_value) { ?>
                 <option value="<?php echo $option_value['product_option_value_id']; ?>"><?php echo $option_value['name']; ?>
@@ -182,11 +187,9 @@
                 <?php foreach ($option['product_option_value'] as $option_value) { ?>
                 <div class="radio">
                   <label>
-                    <input type="radio" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" />
+                    <input type="radio" class="combined_price" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" data-price="<?php echo $option_value['combined_price']; ?>" />
                     <?php echo $option_value['name']; ?>
-                    <?php if ($option_value['price']) { ?>
-                    (<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)
-                    <?php } ?>
+                    (<?php echo $option_value['combined_price']; ?>)
                   </label>
                 </div>
                 <?php } ?>
@@ -371,8 +374,6 @@
             </div>
             <div class="button-group">
               <button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>', '<?php echo $product['minimum']; ?>');"><span class="hidden-xs hidden-sm hidden-md"><?php echo $button_cart; ?></span> <i class="fa fa-shopping-cart"></i></button>
-              <button type="button" data-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-heart"></i></button>
-              <button type="button" data-toggle="tooltip" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-exchange"></i></button>
             </div>
           </div>
         </div>
@@ -386,17 +387,6 @@
         <?php $i++; ?>
         <?php } ?>
       </div>
-      <?php } ?>
-      <?php if ($tags) { ?>
-      <p><?php echo $text_tags; ?>
-        <?php for ($i = 0; $i < count($tags); $i++) { ?>
-        <?php if ($i < (count($tags) - 1)) { ?>
-        <a href="<?php echo $tags[$i]['href']; ?>"><?php echo $tags[$i]['tag']; ?></a>,
-        <?php } else { ?>
-        <a href="<?php echo $tags[$i]['href']; ?>"><?php echo $tags[$i]['tag']; ?></a>
-        <?php } ?>
-        <?php } ?>
-      </p>
       <?php } ?>
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
@@ -594,4 +584,16 @@ $(document).ready(function() {
 	});
 });
 //--></script>
+<script>
+$('input[type=radio].combined_price').on('click', function(){
+  $('#price').text($(this).data("price"));
+  $('.thumbnail').removeClass('selected');
+  $('.thumbnail#option_' + $(this).val()).addClass('selected');
+});
+
+$('select.option_select').on('change', function(){
+  $('.thumbnail').removeClass('selected');
+  $('.thumbnail#option_' + $(this).val()).addClass('selected');
+});
+</script>
 <?php echo $footer; ?>

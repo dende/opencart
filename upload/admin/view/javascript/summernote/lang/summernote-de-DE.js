@@ -1,14 +1,18 @@
+
 (function ($) {
   $.extend($.summernote.lang, {
     'de-DE': {
       font: {
         bold: 'Fett',
-        italic: 'Kursiv',
-        underline: 'Unterstreichen',
-        clear: 'Zurücksetzen',
-        height: 'Zeilenhöhe',
-        strikethrough: 'Durchgestrichen',
-        size: 'Schriftgröße'
+		italic: 'Kursiv',
+		underline: 'Unterstrichen',
+		strikethrough: 'Durchgestrichen',
+		subscript: 'Tiefgestellt',
+		superscript: 'Hochgestellt',
+		clear: 'Schriftart entfernen',
+		height: 'Zeilenhöhe',
+		name: 'Schriftart',
+		size: 'Schriftgröße'
       },
       image: {
         image: 'Grafik',
@@ -19,23 +23,10 @@
         floatLeft: 'Linksbündig',
         floatRight: 'Rechtsbündig',
         floatNone: 'Kein Textfluss',
-        shapeRounded: 'Rahmen: Abgerundet',
-        shapeCircle: 'Rahmen: Kreisförmig',
-        shapeThumbnail: 'Rahmen: Thumbnail',
-        shapeNone: 'Kein Rahmen',
-        dragImageHere: 'Ziehen Sie ein Bild mit der Maus hierher',
-        selectFromFiles: 'Wählen Sie eine Datei aus',
-        maximumFileSize: 'Maximale Dateigröße',
-        maximumFileSizeError: 'Maximale Dateigröße überschritten',
+        dragImageHere: 'Bild mit Maus hierher ziehen',
+        selectFromFiles: 'Datei auswählen',
         url: 'Grafik URL',
         remove: 'Grafik entfernen'
-      },
-      video: {
-        video: 'Video',
-        videoLink: 'Video Link',
-        insert: 'Video einfügen',
-        url: 'Video URL?',
-        providers: '(YouTube, Vimeo, Vine, Instagram, DailyMotion, oder Youku)'
       },
       link: {
         link: 'Link',
@@ -43,14 +34,14 @@
         unlink: 'Link entfernen',
         edit: 'Editieren',
         textToDisplay: 'Anzeigetext',
-        url: 'Ziel des Links?',
-        openInNewWindow: 'In einem neuen Fenster öffnen'
+        url: 'Ziel des Links',
+        openInNewWindow: 'In neuem Fenster öffnen'
       },
       table: {
         table: 'Tabelle'
       },
       hr: {
-        insert: 'Eine horizontale Linie einfügen'
+        insert: 'Horizontale Linie einfügen'
       },
       style: {
         style: 'Stil',
@@ -103,8 +94,14 @@
       history: {
         undo: 'Rückgängig',
         redo: 'Wiederholen'
+      },
+      video: {
+      	video: 'Video',
+	  	videoLink: 'Videolink',
+	  	insert: 'Video  einfügen',
+	  	url: 'Video URL',
+	  	providers: '(YouTube, Vimeo, Vine, Instagram, DailyMotion oder Youku)'
       }
-
     }
   });
 })(jQuery);
